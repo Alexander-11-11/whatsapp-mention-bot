@@ -1,0 +1,33 @@
+modules = ["nodejs-20", "postgresql-16"]
+
+[nix]
+channel = "stable-24_05"
+packages = ["glib", "gtk3", "nss", "gdk-pixbuf", "atk", "alsa-lib", "xorg.libX11", "xorg.libXext", "xorg.libXrender", "xorg.libXtst", "xorg.libXcomposite", "xorg.libXcursor", "xorg.libXdamage", "xorg.libXfixes", "xorg.libXi", "xorg.libXrandr", "libdrm", "mesa", "dbus", "fontconfig", "freetype", "libxkbcommon", "wayland"]
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "WhatsApp Bot Server"
+
+[[workflows.workflow]]
+name = "WhatsApp Bot Server"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm install express whatsapp-web.js qrcode-terminal && node server.js"
+waitForPort = 5000
+
+[deployment]
+run = ["sh", "-c", "npm install express whatsapp-web.js qrcode-terminal && node server.js"]
+
+[[ports]]
+localPort = 5000
+externalPort = 80
