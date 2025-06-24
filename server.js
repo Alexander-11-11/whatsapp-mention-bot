@@ -12,9 +12,9 @@ const bot = new WhatsAppBot();
 app.use(express.static('public'));
 app.use(express.json());
 
-// Serve main page
+// Serve main page (Railway check)
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.send('✅ البوت شغال على Railway!');
 });
 
 // Uptime Robot endpoint - detailed status
